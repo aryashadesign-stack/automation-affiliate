@@ -1,0 +1,47 @@
+{
+    "project_name": "Affiliate AI Auto Creator",
+    "nodes": [
+        {
+            "name": "Trigger Schedule",
+            "type": "Schedule Trigger",
+            "cron": "0 5,9,12,17,21 * * *",
+            "timezone": "Asia/Jakarta"
+        },
+        {
+            "name": "Google Sheets Read",
+            "type": "Google Sheets",
+            "action": "Read products_dummy.csv (or linked sheet)"
+        },
+        {
+            "name": "Gemini Prompt Generator",
+            "type": "AI",
+            "model": "Gemini",
+            "task": "Generate image + video prompt based on product info"
+        },
+        {
+            "name": "Meta AI Image Creation",
+            "type": "API",
+            "service": "Meta AI Image",
+            "input": "Prompt from Gemini"
+        },
+        {
+            "name": "Meta AI Video Creation",
+            "type": "API",
+            "service": "Meta AI Video",
+            "input": "Prompt from Gemini + Image"
+        },
+        {
+            "name": "TikTok Upload",
+            "type": "API",
+            "service": "TikTok",
+            "action": "Upload video with caption",
+            "schedule": "Auto 5x/day"
+        },
+        {
+            "name": "Logger",
+            "type": "Google Sheets Append",
+            "target": "log_template.csv (or linked sheet)"
+        }
+    ],
+    "notes": "Template workflow untuk n8n — otomatis ambil produk, buat prompt dengan Gemini, generate image & video via Meta AI, lalu upload ke TikTok 5x/hari."
+}
