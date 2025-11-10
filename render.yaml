@@ -3,5 +3,4 @@ services:
     name: automation-affiliate
     env: docker
     plan: free
-    branch: main
     autoDeploy: true
